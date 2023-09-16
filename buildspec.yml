@@ -8,7 +8,7 @@ phases:
 #      # - Alternatively: https://www.owasp.org/index.php/OWASP_Dependency_Check
   pre_build:
     commands:
-      - echo " - Installing poetry
+      - echo " - Installing poetry"
       - pip install poetry
       - echo " - Installing package"
       - poetry install
