@@ -5,7 +5,7 @@ description = "Some example code/dashboards to demonstrate working experience"
 authors = ["Luke Stedman <luke@stedman.email>"]
 readme = "README.md"
 packages = [
-    { include="stedders/number"}
+    { include="stedders/one"}
 ]
 
 [tool.poetry.dependencies]
