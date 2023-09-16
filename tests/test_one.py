@@ -67,15 +67,15 @@ def test_initial_number():
 
 def test_addition():
     # Check result is correct
-    assert one + 5 == 6
+    assert one + 6 == 7
     # Check file has been written
-    assert Path("six.py").exists()
+    assert Path("seven.py").exists()
 
     # import the new module, intellisense doesn't like this as we are dynamically setting the path in the fixture
-    import six
+    import seven
 
     # Check the module matches the correct value
-    assert six == 6
+    assert seven == 7
 
 
 def test_multiplcation():
