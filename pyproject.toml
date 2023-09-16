@@ -10,6 +10,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.11"
+inflect = "^7.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
