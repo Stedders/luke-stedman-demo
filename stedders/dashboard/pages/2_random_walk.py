@@ -42,12 +42,13 @@ with date_range_col:
         pass
 
 generate = st.button(
-    "Generate", disabled=seed is None and companies is None and start is None and end is None
+    "Generate",
+    disabled=seed is None and companies is None and start is None and end is None,
 )
 
 
 def generate_time_series(
-        seed_input: ..., companies_input: int, start_input: date, end_input: date
+    seed_input: ..., companies_input: int, start_input: date, end_input: date
 ) -> pd.DataFrame:
     # Initialize the randomisation
     fake = Faker()
@@ -76,22 +77,27 @@ def generate_time_series(
                 data=np.concatenate(
                     (
                         # Create a random 1D (columns) range based on the number of companoes, init between 0 - 150
-                        np.random.random(
-                            size=(1, companies_input)
-                        ) * 150,
+                        np.random.random(size=(1, companies_input)) * 150,
                         # Concat a random 2D array based on the length of the time_series range and number of companies
                         (
-                                np.random.random(
-                                    size=(len(time_series) - 1, companies_input)
-                                ) * 0.1
+                            np.random.random(
+                                size=(len(time_series) - 1, companies_input)
+                            )
+                            * 0.1
                             # randoml
-                        ) * np.random.choice(a=[-1, 0, 1], size=(len(time_series) - 1, companies_input),
-                                             p=[0.3, 0.3, 0.4])
-                    ), axis=0
+                        )
+                        * np.random.choice(
+                            a=[-1, 0, 1],
+                            size=(len(time_series) - 1, companies_input),
+                            p=[0.3, 0.3, 0.4],
+                        ),
+                    ),
+                    axis=0,
                 ),
-                schema=[fake.company() for _ in range(companies_input)]
-            ).select(pl.all().cumsum())
-        ), how="horizontal"
+                schema=[fake.company() for _ in range(companies_input)],
+            ).select(pl.all().cumsum()),
+        ),
+        how="horizontal",
     )
 
     return time_series.to_pandas().set_index("timestamp")
