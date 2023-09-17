@@ -30,7 +30,6 @@ if __name__ == "__main__":
     raise RuntimeError("Module must be imported, it is not runnable")
 
 
-
 def _convert_int(func: callable) -> callable:
     @wraps(func)
     def wrapper(self: _PretendInt, other: int | _PretendInt) -> int:

@@ -11,7 +11,6 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.11"
 inflect = "^7.0.0"
-plotly = "^5.17.0"
 
 [tool.poetry.group.dev]
 optional = true
@@ -32,6 +31,8 @@ streamlit = "^1.26.0"
 polars = "^0.19.3"
 numpy = "^1.25.2"
 yfinance = "^0.2.28"
+plotly = "^5.17.0"
+faker = "^19.6.1"
 
 [build-system]
 requires = ["poetry-core"]

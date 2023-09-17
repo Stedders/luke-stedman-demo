@@ -19,14 +19,16 @@ st.title(dashboard_name)
 
 
 st.write("A simple dashboard sourcing data from Yahoo Finance")
-nasdaq_stocks = sorted([
-    f"{stock['Symbol']} ({stock['Name']})"
-    for stock in pl.read_csv(
-        Path(__file__).parent.parent / "reference_data/nasdaq.csv"
-    ).select(pl.struct(pl.col("Symbol"), pl.col("Name"))).to_dict(
-        as_series=False
-    )["Symbol"]
-])
+nasdaq_stocks = sorted(
+    [
+        f"{stock['Symbol']} ({stock['Name']})"
+        for stock in pl.read_csv(
+            Path(__file__).parent.parent / "reference_data/nasdaq.csv"
+        )
+        .select(pl.struct(pl.col("Symbol"), pl.col("Name")))
+        .to_dict(as_series=False)["Symbol"]
+    ]
+)
 
 selected_tickers = st.multiselect("Select Tickers:", nasdaq_stocks)
 date_range_col, other_col = st.columns(2)
@@ -37,7 +39,7 @@ with date_range_col:
         start, end = st.date_input(
             "Select date range:",
             value=(date.today() - timedelta(days=30), date.today()),
-            max_value=date.today()
+            max_value=date.today(),
         )
     except ValueError:
         pass
@@ -51,14 +53,21 @@ if selected_tickers and start and end:
         ticker_history = ticker.history(start=start, end=end)
 
         fig = fig.add_trace(
-            go.Scatter(x=ticker_history.index, y=ticker_history["Close"], name=ticker_name)
+            go.Scatter(
+                x=ticker_history.index, y=ticker_history["Close"], name=ticker_name
+            )
         )
     else:
-        tickers = yfinance.Tickers(" ".join([x.split(" ")[0] for x in selected_tickers]))
+        tickers = yfinance.Tickers(
+            " ".join([x.split(" ")[0] for x in selected_tickers])
+        )
         tickers_history = tickers.history(start=start, end=end)
         for ticker in tickers_history["Close"]:
             fig = fig.add_trace(
-                go.Scatter(x=tickers_history.index, y=tickers_history["Close"][ticker], name=ticker)
+                go.Scatter(
+                    x=tickers_history.index,
+                    y=tickers_history["Close"][ticker],
+                    name=ticker,
+                )
             )
     st.plotly_chart(fig, use_container_width=True)
-
