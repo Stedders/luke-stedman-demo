@@ -90,4 +90,4 @@ Finally, I pulled the above together and deployed it to AWS to demonstrate my kn
 
 ### Deployed Dashboard
 
-You can access the dashboard on AWS at http://34.231.225.206:8501/
+You can access the dashboard on AWS at http://44.204.243.147:8501/
